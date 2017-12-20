@@ -1,0 +1,162 @@
+<?page title="miRNADet Upload" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window title="miRNADet" border="normal"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('mirnadet.frontend.upload.UploadVM')"
+		vflex="max" sizable="true" hflex="max" position="center">
+		<div align="center">
+			<hbox>
+				<label id="lbl" value="File: " />
+
+				<textbox width="400px" id="txtUploadedFile"
+					multiline="false" readonly="true"
+					tooltiptext="uploaded file name">
+				</textbox>
+
+				<space height="50px" />
+				<vbox>
+					<hbox>
+						<button label="choose" id="btnUpload"
+							onUpload="@command('uploadFile')" upload="true,multiple=false" />
+						<image src="Files/QuestionmarkButton.png"
+							tooltip="fileUpload" style="cursor: help" />
+					</hbox>
+					<button label="START" id="btnProcess"
+						onClick="@command('startProcessing')" visible="false" />
+				</vbox>
+			</hbox>
+			<separator />
+
+			<vbox>
+				<hbox>
+					<label value="What did your file contain?" />
+					<image src="Files/QuestionmarkButton.png"
+						tooltip="select" style="cursor: help" />
+				</hbox>
+				<radiogroup id="rGroup" orient="vertical">
+					<radio id="rPre"
+						label="potential pre-miRNA RNA sequence(s)" checked="true" />
+					<radio id="rDNA"
+						label="DNA-sequence(s) that might contain miRNAs" />
+					<attribute name="onClick">
+	if(rGroup.getSelectedIndex() == 1){
+		lblSlide.setVisible(true);
+		selBox.setVisible(true);
+	}else{
+	lblSlide.setVisible(false);
+	selBox.setVisible(false);}
+	
+</attribute>
+					</radiogroup>
+					
+					
+					
+						<label id ="lblSlide" value="sliding window size (nt):" visible="false"/>
+						<selectbox model="@bind(vm.model)" id="selBox"
+					selectedIndex="1" visible="false">
+					<template name="model">
+						<label value="${each}" />
+					</template>
+				</selectbox>
+					</vbox>
+				
+				<space height="20" />
+
+			<separator />
+		
+						<label value="Enter sequence:" />
+						<image 
+							src="Files/QuestionmarkButton.png" tooltip="textboxUpload"
+							style="cursor: help" />
+					
+					<textbox id="txtUpload" height="300px" width="400px"
+						multiline="true"
+						tooltiptext="Enter a nucleotide sequence of min. length 30 nt ">
+						<attribute name="onChanging">
+	if (event.getValue().length() > 30) {
+		btnGo.setVisible(true);
+		btnUpload.setVisible(false);
+		lbl.setVisible(false);
+
+	} else {
+		btnGo.setVisible(false);
+		btnUpload.setVisible(true);
+		lbl.setVisible(true);
+	}
+</attribute>
+				</textbox>
+			
+					<button label="Start" onClick="@command('startTextBoxProcessing')"
+						id="btnGo" visible="false" />
+
+				
+			
+</div>
+		
+	</window>
+	<popup id="fileUpload" width="300px">
+		<html>
+
+
+
+
+
+
+			
+			<![CDATA[ Upload a FASTA formatted file of max 50 MB size. <br>
+			The file might either contain pre-miRNA sequences you wish to get classified or DNA-segments.
+			<br><br>pre-miRNA: each entry will be processed and classified either as miRNA or non-miRNA. 
+			<br><br>DNA-segments: the DNA sequence(s) provided, will be cut into smaller sequences via a sliding window 
+			(if option chosen, you will get the opportunity to determine the size of the sliding window), 
+			the subsequences will be translated to RNA and classified.<br><br>Ambiguity code is allowed for both versions. ]]>
+			
+			
+			
+			
+			
+			
+			
+		</html>
+	</popup>
+	<popup id="textboxUpload" width="300px">
+		<html>
+
+
+
+
+
+
+			
+			<![CDATA[ Paste either a FASTA nucleotide sequence or a pure
+			nucleotide sequence to this textbox. <br><br>Minimum length for
+			accepting textbox input is 30 characters.<br><br>If input is not in FASTA-format, only one sequence is
+			allowed. Ambiguity code is accepted. ]]>
+			
+			
+			
+			
+			
+			
+			
+		</html>
+	</popup>
+	<popup id="select" width="300px">
+		<html>
+
+
+
+
+
+
+			
+			<![CDATA[ As mentioned in the help-point next to the upload-button, you are allowed to choose your content-type and how you would like to it to be processed.<br>Activating the DNA-segment option, spawns a drop-down-menu which allows you to pick the the sliding-window-size. Default is set to 50 nucleotides. ]]>
+			
+			
+			
+			
+			
+			
+			
+		</html>
+	</popup>
+</zk>

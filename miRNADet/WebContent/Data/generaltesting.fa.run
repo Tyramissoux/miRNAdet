@@ -1,0 +1,6 @@
+hybrid-ss-min 3.8 ran on generaltesting.fa at Wed Nov 29 15:45:12 2017
+
+suffix = DAT
+maxloop = 30
+prefilter 2/2
+mfold mode: P=100, W=-1, MAX=100

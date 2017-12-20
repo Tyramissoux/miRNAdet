@@ -1,0 +1,25 @@
+boxplot_ng, mfold 3.6
+Trying to open test.fa.plot
+The number of helices is 23
+Helix total is 24
+There are 23 helices in the plot file.
+Postscript file name is test.fa.ps
+Normal exit from boxplot_ng.
+Rotation angle: 0.00 degrees
+Input File: test.fa_1.ct
+Sequence length: 144
+Using 356.0 degrees of the circle 
+Output:  test.fa_1.ps
+Normal exit from sir_graph.
+Rotation angle: 0.00 degrees
+Input File: test.fa_2.ct
+Sequence length: 144
+Using 356.0 degrees of the circle 
+Output:  test.fa_2.ps
+Normal exit from sir_graph.
+Rotation angle: 0.00 degrees
+Input File: test.fa_3.ct
+Sequence length: 144
+Using 356.0 degrees of the circle 
+Output:  test.fa_3.ps
+Normal exit from sir_graph.

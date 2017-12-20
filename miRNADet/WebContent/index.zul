@@ -1,0 +1,4 @@
+<zk xmlns:n="native" xmlns:c="client">
+	<?page title="miRNADet"?>
+<?forward uri="/upload.zul" ?>
+</zk>

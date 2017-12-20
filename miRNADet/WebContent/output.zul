@@ -1,0 +1,159 @@
+<?page title="Open Reading Frame Analysis - Output" contentType="text/html;charset=UTF-8"?>
+
+
+<zk xmlns:n="native" xmlns:c="client">
+
+
+	<window id="win" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('vm.OutputVM')" border="normal">
+		<vbox>
+			<hbox>
+				<div align="left">
+					<selectbox model="@bind(vm.model)" selectedIndex="0"
+						id="selBox">
+						<template name="model">
+							<label value="${each}" />
+						</template>
+					</selectbox>
+					<button id="btnGo" label="switch"
+						onClick="@command('switchEntry')" /><image id="questionmark"
+						src="Files/QuestionmarkButton.png" tooltip="selectbox"
+						style="cursor: help" />
+						<label value="av. sequence length: "/>
+						<label id="lblAv" value="@load(vm.average)"/>
+					
+				</div>
+				<div align="right">
+					<button id="diagrams" label="Show diagrams"
+						onClick="@command('showDiags')" />
+					<button id="excel" label="Save as *.xlsx"
+						onClick="@command('saveAsExcel')" />
+					<image id="questionmark2"
+						src="Files/QuestionmarkButton.png" tooltip="excelanddiags"
+						style="cursor: help" />
+				</div>
+			</hbox>
+			<label value="@load(vm.header)" />
+		</vbox>
+		<hbox>
+			<listbox model="@load(vm.orfs)" id="listbox"
+				style="overflow:auto" selectedIndex="@bind(vm.selected)" width="max"
+				height="max" rows="20">
+				<listhead>
+					<listheader label="#" align="center" hflex="min"
+						sort="auto" />
+					<listheader label="Start" align="center"
+						sort="auto(startPos)" hflex="min" />
+					<listheader label="End" align="center"
+						sort="auto(endPos)" hflex="min" />
+					<listheader label="Frame" align="center"
+						sort="auto(frameNum)" hflex="min" />
+					<listheader label="Sense" align="center"
+						sort="auto(sense)" hflex="min" />
+					<listheader label="Length" align="center"
+						sort="auto(seqLength)" hflex="min" />
+					<listheader label="GC content" align="center"
+						sort="auto(gcContent)" hflex="min" />
+					<listheader label="Nucleotide Sequence" align="left"
+						sort="true" />
+					<listheader label="Amino Acid Sequence" align="left"
+						sort="true" />
+				</listhead>
+				<template name="model" var="item">
+					<listitem value="@bind(item)">
+						<listcell>
+							<button label="@load(itemStatus.index+1)"
+								onClick="@command('openNCBI')" />
+						</listcell>
+						<listcell label="@load(item.startPos)" />
+						<listcell label="@load(item.endPos)" />
+						<listcell label="@load(item.frameNum)" />
+						<listcell label="@load(item.sense)" />
+						<listcell label="@load(item.seqLength)" />
+						<listcell label="@load(item.gcCon)" />
+						<listcell label="@load(item.nucSequence)"
+							tooltiptext="@load(item.nucSequence)" />
+						<listcell label="@load(item.aaSequence)"
+							tooltiptext="@load(item.aaSequence)" />
+					</listitem>
+				</template>
+			</listbox>
+		</hbox>
+
+	</window>
+	<popup id="selectbox" width="300px">
+		<html>
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			<![CDATA[ By choosing a sequence from the dropdown list on
+			the left and then pressing the switch button, the detected
+			open reading frames of that sequence will be displayed in
+			the table below.<br><br>At the beginning of each row, there
+			is one small button with the row number on it. If clicked, a
+			new tab will be opened in your browser forwarding the
+			nucleotide sequence of that ORF to NCBI's BLAST page.]]>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</html>
+	</popup>
+	<popup id="excelanddiags" width="300px">
+		<html>
+
+
+
+
+
+
+
+
+
+
+
+
+			
+			<![CDATA[If the 'Show diagrams' button is pushed, a new tab
+			will open in which two diagrams are shown. <br>1. Diagram:
+			position of orfs in the sequence<br>2. Diagram: how many
+			sequences were found for each frame<br><br><br>Pressing the
+			'Save as *.xlsx' will lead to the creation of an Excel file,
+			containing all sequences and ORFs, which will be pushed to
+			your download directory. ]]>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		</html>
+	</popup>
+
+</zk>
